@@ -1,5 +1,6 @@
 package com.paulinaaniola.plantkeeperv2.myplants
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,12 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
@@ -89,8 +92,30 @@ internal fun MyPlantsList(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(plants) {
-            Text("Saved plant: ${it.plantName}")
+        items(plants) { plant ->
+            Plant(plant)
         }
+    }
+}
+
+@Composable
+fun Plant(
+    plantDTO: PlantDTO,
+    modifier: Modifier = Modifier
+) {
+    val shape = RoundedCornerShape(size = 15f)
+    Column(
+        modifier
+            .padding(20.dp)
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.onSecondary, shape = shape)
+    ) {
+        Text(modifier = Modifier.padding(5.dp), text = plantDTO.plantName)
+        Text(
+            modifier = Modifier.padding(5.dp),
+            text = stringResource(
+                R.string.watering_every, plantDTO.wateringIntervalDays
+            )
+        )
     }
 }

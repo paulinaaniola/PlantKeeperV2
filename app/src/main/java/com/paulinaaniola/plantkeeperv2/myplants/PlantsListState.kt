@@ -5,4 +5,4 @@ data class PlantsListState(
     val query: String = "",
 )
 
-data class PlantDTO(val plantName: String, val needsWatering: Boolean)
+data class PlantDTO(val plantName: String, val needsWatering: Boolean, val wateringIntervalDays: Int)
