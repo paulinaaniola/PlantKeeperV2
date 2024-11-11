@@ -12,12 +12,18 @@ class MyPlantsViewModel @Inject constructor() : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
+    val plants = mutableListOf(
+        PlantDTO("Monster", true),
+        PlantDTO("palm", false),
+        PlantDTO("Random plant", false)
+    )
+
     init {
-        val plants = listOf(
-            PlantDTO("Monster", true),
-            PlantDTO("palm", false),
-            PlantDTO("Random plant", false)
-        )
-        _uiState.value = UiState.Success(PlantsListState(plants))
+        _uiState.value = UiState.Success(PlantsListState(plants.toList()))
+    }
+
+    fun addNewPlant() {
+        plants.add(PlantDTO("new", true))
+        _uiState.value = UiState.Success(PlantsListState(plants.toList()))
     }
 }
