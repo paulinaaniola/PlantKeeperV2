@@ -20,11 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PlantKeeperV2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyPlantsScreen(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MyPlantsScreen()
             }
         }
     }

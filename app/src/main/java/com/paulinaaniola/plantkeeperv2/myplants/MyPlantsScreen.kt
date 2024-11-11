@@ -29,7 +29,6 @@ import com.paulinaaniola.plantkeeperv2.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyPlantsScreen(
-    modifier: Modifier = Modifier,
     viewModel: MyPlantsViewModel = hiltViewModel(),
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
