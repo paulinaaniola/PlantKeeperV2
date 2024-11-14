@@ -1,6 +1,8 @@
-package com.paulinaaniola.plantkeeperv2.myplants
+package com.paulinaaniola.plantkeeperv2.feature.myplants
 
 import androidx.lifecycle.ViewModel
+import com.paulinaaniola.plantkeeperv2.model.Plant
+import com.paulinaaniola.plantkeeperv2.model.PlantType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,9 +15,9 @@ class MyPlantsViewModel @Inject constructor() : ViewModel() {
     val uiState: StateFlow<UiState> = _uiState
 
     val plants = mutableListOf(
-        PlantDTO("Monster", true, 1),
-        PlantDTO("palm", false, 2),
-        PlantDTO("Random plant", false, 5)
+        Plant("Monster", PlantType.PALM),
+        Plant("palm",  PlantType.PALM),
+        Plant("Random plant",  PlantType.PALM),
     )
 
     init {
@@ -23,7 +25,7 @@ class MyPlantsViewModel @Inject constructor() : ViewModel() {
     }
 
     fun addNewPlant() {
-        plants.add(PlantDTO("new", true, 8))
+        plants.add(Plant("new",  PlantType.HERB),)
         _uiState.value = UiState.Success(PlantsListState(plants.toList()))
     }
 }

@@ -1,4 +1,4 @@
-package com.paulinaaniola.plantkeeperv2.myplants
+package com.paulinaaniola.plantkeeperv2.feature.myplants
 
 sealed class UiState {
     object Loading : UiState()

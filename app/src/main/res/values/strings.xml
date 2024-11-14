@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PlantKeeperV2</string>
-    <string name="watering_every">Watering every: %1$d days</string>
+    <string name="plant_type">Type: %1$s</string>
+    <string name="name">Name</string>
 </resources>

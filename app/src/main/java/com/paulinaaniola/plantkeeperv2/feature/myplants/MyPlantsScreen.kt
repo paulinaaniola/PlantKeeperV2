@@ -1,4 +1,4 @@
-package com.paulinaaniola.plantkeeperv2.myplants
+package com.paulinaaniola.plantkeeperv2.feature.myplants
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,11 +27,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.paulinaaniola.plantkeeperv2.R
+import com.paulinaaniola.plantkeeperv2.model.Plant
+import com.paulinaaniola.plantkeeperv2.navigation.NavigationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyPlantsScreen(
+    navController: NavController,
     viewModel: MyPlantsViewModel = hiltViewModel(),
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
@@ -48,7 +52,7 @@ fun MyPlantsScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(viewModel::addNewPlant) {
+            FloatingActionButton({ navController.navigate(NavigationItem.AddPlant.route) }) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add new plan button",
@@ -88,7 +92,7 @@ fun MyPlantsScreenContent(
 
 @Composable
 internal fun MyPlantsList(
-    plants: List<PlantDTO>,
+    plants: List<Plant>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
@@ -100,7 +104,7 @@ internal fun MyPlantsList(
 
 @Composable
 fun Plant(
-    plantDTO: PlantDTO,
+    plantDTO: Plant,
     modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(size = 15f)
@@ -114,7 +118,7 @@ fun Plant(
         Text(
             modifier = Modifier.padding(5.dp),
             text = stringResource(
-                R.string.watering_every, plantDTO.wateringIntervalDays
+                R.string.plant_type, plantDTO.plantType.name
             )
         )
     }
