@@ -25,8 +25,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.paulinaaniola.plantkeeperv2.R
 import com.paulinaaniola.plantkeeperv2.ui.components.FormField
+import com.paulinaaniola.plantkeeperv2.ui.components.TopBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewPlantScreen(
     onAddSuccess: () -> Unit,
@@ -34,18 +34,10 @@ fun AddNewPlantScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.add_new_plant),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-            )
+            TopBar(stringResource(R.string.add_new_plant))
         },
         floatingActionButton = {
-            FloatingActionButton(viewModel::onSaveClick ) {
+            FloatingActionButton(viewModel::onSaveClick) {
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = "Save new plant button",
@@ -53,7 +45,7 @@ fun AddNewPlantScreen(
             }
         },
         content = { paddingValues ->
-            MyPlantsScreenContent(paddingValues, viewModel, onAddSuccess )
+            MyPlantsScreenContent(paddingValues, viewModel, onAddSuccess)
         }
     )
 }
@@ -73,7 +65,7 @@ fun MyPlantsScreenContent(
     ) {
         if (uiState is UiState.AddEdit) {
             AddPlantForm(uiState.state, viewModel::onNameChange)
-        } else if(uiState is UiState.OnSaveSuccess) {
+        } else if (uiState is UiState.OnSaveSuccess) {
             onAddSuccess.invoke()
         } else {
             CircularProgressIndicator(
