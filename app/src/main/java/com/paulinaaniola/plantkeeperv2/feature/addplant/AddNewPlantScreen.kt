@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -34,7 +35,7 @@ fun AddNewPlantScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(R.string.app_name),
+                        text = stringResource(R.string.add_new_plant),
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -60,7 +61,7 @@ fun MyPlantsScreenContent(
             .fillMaxWidth()
     ) {
         if (uiState is UiState.AddEdit) {
-            AddPlantForm(uiState.state, viewModel::onNameChange)
+            AddPlantForm(uiState.state, viewModel::onNameChange, viewModel::onSaveClick)
         } else {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -75,11 +76,13 @@ fun MyPlantsScreenContent(
 @Composable
 fun AddPlantForm(
     uiState: AddPlantState,
-    onNameChange: (String) -> Unit
+    onNameChange: (String) -> Unit,
+    onSaveClick: () -> Unit
 ) {
     LazyColumn {
         item {
             FormField(uiState.name, R.string.name, { onNameChange.invoke(it) })
+            Button({ onSaveClick.invoke() }) { }
         }
     }
 }
