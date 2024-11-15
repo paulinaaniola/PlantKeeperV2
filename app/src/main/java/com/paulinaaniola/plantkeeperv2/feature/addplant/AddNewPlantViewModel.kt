@@ -3,7 +3,7 @@ package com.paulinaaniola.plantkeeperv2.feature.addplant
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulinaaniola.plantkeeperv2.data.repository.PlantsRepository
-import com.paulinaaniola.plantkeeperv2.di.DispatcherDefault
+import com.paulinaaniola.plantkeeperv2.di.DispatcherIo
 import com.paulinaaniola.plantkeeperv2.model.Plant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddNewPlantViewModel @Inject constructor(
-    @DispatcherDefault private val dispatcher: CoroutineDispatcher,
+    @DispatcherIo private val dispatcher: CoroutineDispatcher,
     private val plantsRepository: PlantsRepository
 ) : ViewModel() {
 

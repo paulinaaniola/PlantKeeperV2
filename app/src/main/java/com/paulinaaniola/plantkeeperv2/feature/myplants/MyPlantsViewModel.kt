@@ -1,26 +1,32 @@
 package com.paulinaaniola.plantkeeperv2.feature.myplants
 
 import androidx.lifecycle.ViewModel
-import com.paulinaaniola.plantkeeperv2.model.Plant
-import com.paulinaaniola.plantkeeperv2.model.PlantType
+import androidx.lifecycle.viewModelScope
+import com.paulinaaniola.plantkeeperv2.data.repository.PlantsRepository
+import com.paulinaaniola.plantkeeperv2.di.DispatcherIo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPlantsViewModel @Inject constructor() : ViewModel() {
+class MyPlantsViewModel @Inject constructor(
+    @DispatcherIo val dispatcher: CoroutineDispatcher,
+    val plantsRepository: PlantsRepository
+) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    val plants = mutableListOf(
-        Plant(1,"Monster", PlantType.PALM),
-        Plant(2,"palm",  PlantType.PALM),
-        Plant(3,"Random plant",  PlantType.PALM),
-    )
-
     init {
-        _uiState.value = UiState.Success(PlantsListState(plants.toList()))
+        viewModelScope.launch(dispatcher) {
+            plantsRepository.getPlants().map { plants -> UiState.Success(PlantsListState(plants)) }
+                .collect {
+                    _uiState.value = it
+                }
+        }
     }
 }
