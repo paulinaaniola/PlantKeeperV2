@@ -9,13 +9,14 @@ import com.paulinaaniola.plantkeeperv2.model.PlantType
 data class PlantEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
-    val name: String
+    val name: String,
+    val type: PlantType
 )
 
 fun Plant.toEntity(): PlantEntity {
-    return PlantEntity(id = id, name = plantName)
+    return PlantEntity(id = id, name = plantName, type = plantType)
 }
 
 fun PlantEntity.toPlant(): Plant {
-    return Plant(id = id, plantName = name, plantType = PlantType.PALM)
+    return Plant(id = id, plantName = name, plantType = type)
 }

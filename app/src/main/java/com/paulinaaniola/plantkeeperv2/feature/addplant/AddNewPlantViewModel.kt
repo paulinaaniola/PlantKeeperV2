@@ -38,6 +38,7 @@ class AddNewPlantViewModel @Inject constructor(
                 val state = value.state
                 val plant = Plant(plantName = state.name, plantType = state.type)
                 plantsRepository.setPlant(plant)
+                _uiState.value = UiState.OnSaveSuccess
             }
         }
     }

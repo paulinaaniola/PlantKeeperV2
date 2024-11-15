@@ -5,4 +5,6 @@ sealed class UiState {
     data class AddEdit(
         val state: AddPlantState
     ) : UiState()
+
+    object OnSaveSuccess : UiState()
 }

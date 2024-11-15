@@ -23,7 +23,7 @@ fun AppNavHost(
             MyPlantsScreen(navController)
         }
         composable(NavigationItem.AddPlant.route) {
-            AddNewPlantScreen(navController)
+            AddNewPlantScreen({ navController.navigateUp() })
         }
     }
 }
